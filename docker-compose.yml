@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend:
     image: ${IMAGE_BE}
-    container_name: backend
+    container_name: theme_backend
     env_file:
       - ./env/backend.env
     restart: always
@@ -11,23 +11,23 @@ services:
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`api.themes.dangngochai.io.vn`)"
-      - "traefik.http.routers.backend.entrypoints=websecure"
-      - "traefik.http.routers.backend.tls.certresolver=le"
-      - "traefik.http.services.backend.loadbalancer.server.port=5000"
+      - "traefik.http.routers.themesbackend.rule=Host(`api.themes.dangngochai.io.vn`)"
+      - "traefik.http.routers.themesbackend.entrypoints=websecure"
+      - "traefik.http.routers.themesbackend.tls.certresolver=le"
+      - "traefik.http.services.themesbackend.loadbalancer.server.port=5000"
   frontend:
     image: ${IMAGE_FE}
-    container_name: frontend
+    container_name: theme_frontend
     env_file: ./env/frontend.env
     restart: always
     networks:
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`themes.dangngochai.io.vn`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=le"
-      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+      - "traefik.http.routers.themesfrontend.rule=Host(`themes.dangngochai.io.vn`)"
+      - "traefik.http.routers.themesfrontend.entrypoints=websecure"
+      - "traefik.http.routers.themesfrontend.tls.certresolver=le"
+      - "traefik.http.services.themesfrontend.loadbalancer.server.port=80"
 networks:
   web:
     external: true
